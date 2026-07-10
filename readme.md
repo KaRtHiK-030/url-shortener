@@ -1,132 +1,371 @@
-# URL Shortener
+<div align="center">
 
-Spring Boot based REST API that takes a URL and returns a shortened URL and uses MySQL to persist data.
+# 🔗 URL Shortener
 
-# Getting Started
+### Modern URL Shortening Service built with Java, Spring Boot, MySQL & Docker
 
-## Dependencies
+<p>
+A scalable RESTful URL Shortening application that converts long URLs into compact, shareable links using an efficient Base62 encoding algorithm. Built with Spring Boot following layered architecture and containerized using Docker for easy deployment.
+</p>
 
-This project depends on 
-* spring-boot-starter-web (Spring boot framework)
-* spring-boot-starter-data-jpa (for data persistence)
-* spring-boot-starter-actuator (for API statistics)
-* commons-validator:1.6 (for URL validation)
-* h2 (for tests)
-* spring-boot-starter-test (for testss)
+<br>
 
-## Project Build 
+![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.x-6DB33F?style=for-the-badge&logo=springboot)
+![Gradle](https://img.shields.io/badge/Gradle-8.x-02303A?style=for-the-badge&logo=gradle)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker)
+![REST API](https://img.shields.io/badge/Architecture-REST_API-blue?style=for-the-badge)
 
-To build this project, run
+</div>
 
-```shell script
-git clone https://github.com/zeeshaanahmad/url-shortener.git
-cd url-shortener
-gradle clean build
+---
+
+# 📖 Overview
+
+URL Shortener is a backend application developed using **Java** and **Spring Boot** that transforms long URLs into short, easy-to-share links.
+
+The application exposes REST APIs for shortening URLs and redirecting users to the original destination. URL information is stored in a MySQL database using Spring Data JPA, while Docker support simplifies deployment.
+
+The project demonstrates practical backend engineering concepts including:
+
+- REST API Development
+- Spring Boot
+- Spring Data JPA
+- MySQL Integration
+- Layered Architecture
+- Docker Deployment
+- URL Encoding using Base62
+- Input Validation
+- Exception Handling
+
+---
+
+# ✨ Features
+
+## 🔗 URL Shortening
+
+- Convert long URLs into short URLs
+- Base62 encoding algorithm
+- Unique URL generation
+- Fast redirection
+
+---
+
+## 💾 Database Integration
+
+- MySQL Database
+- Spring Data JPA
+- Repository Pattern
+- Persistent URL storage
+
+---
+
+## ⚡ REST API
+
+- Create Short URL
+- Redirect to Original URL
+- Health Check Endpoint
+- JSON Responses
+
+---
+
+## 🛡 Validation
+
+- HTTP/HTTPS URL validation
+- Proper exception handling
+- Meaningful error responses
+- Request validation
+
+---
+
+## 🐳 Docker Support
+
+- Dockerized Spring Boot application
+- MySQL Docker container
+- Docker Compose configuration
+
+---
+
+## 📊 Monitoring
+
+- Spring Boot Actuator
+- Health Endpoint
+- Application Metrics
+
+---
+
+# 🛠 Tech Stack
+
+| Layer | Technology |
+|--------|------------|
+| Language | Java |
+| Framework | Spring Boot |
+| Build Tool | Gradle |
+| Database | MySQL |
+| ORM | Spring Data JPA (Hibernate) |
+| Validation | Commons Validator |
+| Monitoring | Spring Boot Actuator |
+| Containerization | Docker |
+| API Style | REST |
+
+---
+
+# 🏗 Architecture
+
+```
+                Client
+
+                  │
+
+                  ▼
+
+         Spring Boot REST API
+
+                  │
+
+                  ▼
+
+          Controller Layer
+
+                  │
+
+                  ▼
+
+            Service Layer
+
+                  │
+
+                  ▼
+
+          Repository Layer
+
+                  │
+
+                  ▼
+
+             MySQL Database
 ```
 
-## Deployment
+---
 
-Project build can be deployed using docker-compose.yml which sets up two containers for
-* MySql
-* REST API
+# 📂 Project Structure
 
-To deploy the project, run
+```
+url-shortener
+│
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   ├── common
+│   │   │   ├── controller
+│   │   │   ├── dto
+│   │   │   ├── error
+│   │   │   ├── model
+│   │   │   ├── repository
+│   │   │   ├── service
+│   │   │   └── UrlShortenerApplication
+│   │   │
+│   │   └── resources
+│   │
+│   └── test
+│
+├── docker-compose.yml
+├── schema.sql
+├── build.gradle
+└── README.md
+```
 
-```shell script
+---
+
+# ✅ Prerequisites
+
+Before running the project, ensure the following are installed:
+
+- Java 21
+- Gradle 8+
+- MySQL 8+
+- Docker Desktop (Optional)
+- Git
+
+---
+
+# ⚙ Installation
+
+## Clone Repository
+
+```bash
+git clone https://github.com/KaRtHiK-030/url-shortener.git
+
+cd url-shortener
+```
+
+---
+
+## Build Project
+
+```bash
+./gradlew clean build
+```
+
+---
+
+## Run Application
+
+```bash
+./gradlew bootRun
+```
+
+Application runs at
+
+```
+http://localhost:8080
+```
+
+---
+
+# 🐳 Docker Deployment
+
+Build and start the application using Docker Compose
+
+```bash
 docker-compose up --build
 ```
 
-**The application will be accessible on http://localhost:8080**
+The following containers will be created:
 
-### db.Dockerfile
-`db.Dockerfile` builds the docker image for MySql using MySql version 8 as the base image. It uses `schema.sql` at startup to set up the database schema.
+- Spring Boot API
+- MySQL Database
 
-### api.Dockerfile
-`api.Dockerfile` sets up an image to deploy the project's jar file generated above from `build/libs/url-shortener-0.0.1-SNAPSHOT.jar`. It exposes the API on port `8080`
+---
 
-### docker-compose.yml
-Provides the configuration for containers to host API and MySql. It sets up two services; `api-server` and `api-db` with container names `urlshortener-springboot` and `mysqlurldb` respectively. 
-The datasource url is being set in the `api-server` configuration so that it points to the MySql container.
-Both `api-server` and `api-db` are linked together through the `urlshortener-mysql-network` docker network. The network enables both the containers to communicate together.
+# 🔌 REST API
 
-## API Endpoints
+## Shorten URL
 
-You can access following API endpoints at http://localhost:8080
+```
+POST /shorten
+```
 
-### POST `/shorten`
-It takes a JSON object in the following format as payload
+Request
 
 ```json
 {
-  "fullUrl":"<The URL to be shortened>"
+    "fullUrl":"https://example.com"
 }
 ```
 
-#### cURL
-
-```shell script
-curl -X POST \
-  http://localhost:8080/shorten \
-  -H 'Content-Type: application/json' \
-  -d '{"fullUrl":"https://example.com/example/1"}'
-```
-
-Response:
+Response
 
 ```json
 {
-  "shortUrl": "<shortened url for the fullUrl provided in the request payload>"
+    "shortUrl":"http://localhost:8080/abc123"
 }
 ```
 
-Please note that API works only with valid HTTP or HTTPS Urls. In case of malformed Url, it returns `400 Bad Request` error with response body containing a JSON object in the following format
+---
 
-```json
-{
-  "field":"fullUrl",
-  "value":"<Malformed Url provided in the request>",
-  "message":"<Exception message>"
-}
+## Redirect
+
+```
+GET /{shortCode}
 ```
 
-### GET `/<shortened_text>`
+Redirects the user to the original URL.
 
-This endpoint redirects to the corresponding fullUrl.
+---
 
-### GET `/actuator/health`
+## Health Check
 
-Included the spring boot actuator dependency for API metrics. You can try this endpoint for health checks.
-
-#### cURL
-
-```shell script
-curl -X GET   http://localhost:8080/actuator/health
+```
+GET /actuator/health
 ```
 
-## Undeploy
+Returns application health information.
 
-To undeploy the containers, run
+---
 
-```shell script
-docker-compose down
+# 🗄 Database
+
+The application stores URL information inside MySQL.
+
+Main entity fields include:
+
+| Field | Description |
+|--------|-------------|
+| id | Unique identifier |
+| fullUrl | Original URL |
+| shortUrl | Generated short code |
+
+---
+
+# 🔐 URL Shortening Algorithm
+
+This project uses the **Base62 Encoding Algorithm** to generate short URLs.
+
+### How it works
+
+1. Store the original URL in the database.
+2. Obtain the generated numeric ID.
+3. Convert the numeric ID into a Base62 string.
+4. Return the Base62 string as the short URL.
+
+Base62 uses:
+
+```
+0-9
+a-z
+A-Z
 ```
 
-# Url Shortening Algorithm
+Advantages:
 
-I thought of two approaches
-1. Generating hashes for the fullUrl and storing them as key value pairs in redis cache or in mysql database
-2. Performing a Base62 conversion from Base10 on the id of stored fullUrl
+- Short URLs
+- Human readable
+- Collision free
+- Fast lookup
+- Scalable
 
-Tested both of the approaches but in case of hashes, sometimes the hashes were longer than actual URL. Another issue was the readability and ease of remembering. So, I went with the second approach. With the Base conversion approach, even the maximum value of Long produces 10 characters which is still somewhat easy to remember. 
-> There is a dependency from Google named Guava that could be used here to generate hashes. Although murmur_3_32 hash implemented in Guava was generating up to 10 characters long string, I left it for future testing and evaluation.
+---
 
-# Future Enhancements / Known Issues
-* Since the project is for demo purpose only, Passwords are in plaintext. Will consider using Jasypt to encrypt the password in future
-* Haven't implemented Front-end application yet
-* Faced issues with auto schema generation through JPA, so delegated the schema creation to Docker container
-* Faced issues with api container not being able to get connection while mysql container was being set up, so added `?autoReconnect=true&failOverReadOnly=false&maxReconnects=10&useSSL=false` to datasource url in application.properties. It slows down the application startup. You may remove that part if you want.
-* Implement https
-* Mount volumes for MySql container to persist data outside of the container
+# 🚀 Future Enhancements
 
-# Contributors
-email: ahmad.zeeshaan@gmail.com
+- JWT Authentication
+- Redis Caching
+- Custom URL Alias
+- QR Code Generation
+- URL Expiration
+- Click Analytics Dashboard
+- Rate Limiting
+- Swagger / OpenAPI Documentation
+- Unit & Integration Testing Improvements
+- CI/CD Pipeline
+- Kubernetes Deployment
+
+---
+
+# 👨‍💻 Author
+
+**Karthik Naik**
+
+Backend Developer | Java Developer
+
+GitHub
+
+https://github.com/KaRtHiK-030
+
+LinkedIn
+
+https://www.linkedin.com/in/karthik-naik-/
+
+---
+
+# ⭐ Support
+
+If you found this project useful, consider giving it a **Star ⭐** on GitHub.
+
+---
+
+## 📄 License
+
+This project is intended for educational and learning purposes.
