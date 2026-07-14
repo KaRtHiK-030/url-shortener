@@ -1,6 +1,6 @@
-package com.neueda.interview.urlshortener.repository;
+package com.karthik.urlshortener.repository;
 
-import com.neueda.interview.urlshortener.model.UrlEntity;
+import com.karthik.urlshortener.entity.UrlEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

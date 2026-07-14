@@ -1,9 +1,13 @@
-package com.neueda.interview.urlshortener.error;
+package com.karthik.urlshortener.exception;
 
 public class InvalidUrlError {
+
     private String field;
     private String value;
     private String message;
+
+    public InvalidUrlError() {
+    }
 
     public InvalidUrlError(String field, String value, String message) {
         this.field = field;

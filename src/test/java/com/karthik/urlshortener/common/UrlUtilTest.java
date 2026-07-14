@@ -1,5 +1,6 @@
-package com.neueda.interview.urlshortener.common;
+package com.karthik.urlshortener.common;
 
+import com.karthik.urlshortener.util.UrlUtil;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;

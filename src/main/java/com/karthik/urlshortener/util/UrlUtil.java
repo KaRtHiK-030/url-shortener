@@ -1,4 +1,4 @@
-package com.neueda.interview.urlshortener.common;
+package com.karthik.urlshortener.util;
 
 import java.net.MalformedURLException;
 import java.net.URL;

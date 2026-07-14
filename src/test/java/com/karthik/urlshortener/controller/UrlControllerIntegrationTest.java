@@ -1,9 +1,9 @@
-package com.neueda.interview.urlshortener.controller;
+package com.karthik.urlshortener.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.neueda.interview.urlshortener.dto.FullUrl;
-import com.neueda.interview.urlshortener.service.UrlService;
+import com.karthik.urlshortener.dto.FullUrl;
+import com.karthik.urlshortener.service.UrlService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
