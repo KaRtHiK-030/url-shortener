@@ -1,12 +1,7 @@
 package com.karthik.urlshortener.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 public class ShortUrl {
 
-    @NotBlank(message = "Short URL cannot be empty")
-    @Size(max = 50, message = "Short URL must not exceed 50 characters")
     private String shortUrl;
 
     public ShortUrl() {

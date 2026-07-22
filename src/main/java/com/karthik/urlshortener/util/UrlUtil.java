@@ -1,28 +1,33 @@
 package com.karthik.urlshortener.util;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 
-public class UrlUtil {
+public final class UrlUtil {
+
     private UrlUtil() {
     }
 
     /**
-     * @param url any valid url
-     * @return returns protocol://domain:port/ part of the input url
-     * @throws MalformedURLException
+     * Returns protocol://host[:port]
      */
     public static String getBaseUrl(String url) throws MalformedURLException {
-        URL reqUrl = new URL(url);
-        String protocol = reqUrl.getProtocol();
-        String host = reqUrl.getHost();
-        int port = reqUrl.getPort();
 
-        if (port == -1) {
-            return String.format("%s://%s/", protocol, host);
-        } else {
-            return String.format("%s://%s:%d/", protocol, host, port);
+        try {
+            URI uri = URI.create(url);
+
+            String protocol = uri.getScheme();
+            String host = uri.getHost();
+            int port = uri.getPort();
+
+            if (port == -1) {
+                return protocol + "://" + host;
+            }
+
+            return protocol + "://" + host + ":" + port;
+
+        } catch (IllegalArgumentException e) {
+            throw new MalformedURLException("Invalid URL: " + url);
         }
-
     }
 }
