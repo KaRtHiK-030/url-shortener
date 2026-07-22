@@ -22,6 +22,38 @@ A production-ready RESTful URL Shortener built with <b>Java 21</b>, <b>Spring Bo
 
 ---
 
+# 📑 Table of Contents
+
+- [Overview](#-overview)
+- [Quick Start](#-quick-start)
+- [Live Demo](#-live-demo)
+- [Features](#-features)
+- [Screenshots](#-screenshots)
+- [Architecture](#-architecture)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Environment Variables](#-environment-variables)
+- [Testing](#-testing)
+- [Docker Deployment](#-docker-deployment)
+- [Swagger / API Documentation](#-swagger--api-documentation)
+- [REST API](#-rest-api)
+- [QR Code Generation](#-qr-code-generation)
+- [Analytics](#-analytics)
+- [Database Schema](#-database-schema)
+- [Exception Handling](#-exception-handling)
+- [URL Shortening Algorithm](#-url-shortening-algorithm)
+- [Design Decisions](#-design-decisions)
+- [Security](#-security)
+- [Future Enhancements](#-future-enhancements)
+- [Author](#-author)
+- [Repo Stats](#-repo-stats)
+- [Support](#-support)
+- [License](#-license)
+
+---
+
 # 📖 Overview
 
 URL Shortener is a backend application built with **Java** and **Spring Boot** that transforms long URLs into short, easy-to-share links using a custom **Base62 encoding algorithm**.
@@ -40,6 +72,9 @@ Beyond basic shortening, the project is built as a fully-featured, production-st
 
 The application exposes REST APIs for creating, managing, and redirecting shortened URLs. URL data is persisted in MySQL via Spring Data JPA, and the entire stack is containerized with Docker for easy deployment.
 
+**API Version:** `v1`
+**Base URL:** `/api/v1`
+
 ---
 
 # 🚀 Quick Start
@@ -57,6 +92,17 @@ Then open:
 
 - **Swagger UI** → http://localhost:8080/swagger-ui/index.html
 - **Health Check** → http://localhost:8080/actuator/health
+
+---
+
+## 🌐 Live Demo
+
+🚧 Deployment in progress.
+
+Planned platforms:
+- Render
+- Railway
+- AWS EC2
 
 ---
 
@@ -108,25 +154,46 @@ Then open:
 > Screenshots below were captured from the running application using Swagger UI and Docker Compose.
 
 ### Swagger UI
-<img width="1895" height="966" alt="Swagger UI" src="https://github.com/user-attachments/assets/0ec23c8e-f628-4c98-893d-b43e8b9d1a86" />
 
-### Create Short URL
-<img width="605" height="788" alt="Create Short URL" src="https://github.com/user-attachments/assets/0dd6134a-3eaf-4340-9460-4a27b1766623" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0ec23c8e-f628-4c98-893d-b43e8b9d1a86" width="1000" alt="Swagger UI"/>
+</p>
 
-### Get All URLs
-<img width="902" height="863" alt="Get All URLs" src="https://github.com/user-attachments/assets/98b9f8b1-024c-403c-9a92-10e59d1eee13" />
+### API Screenshots
 
-### URL Analytics
-<img width="607" height="710" alt="URL Analytics" src="https://github.com/user-attachments/assets/de37f7c7-7095-49bb-9c19-8fe3a6088c5a" />
+#### Create Short URL
 
-### QR Code Generation
-<img width="607" height="816" alt="QR Code" src="https://github.com/user-attachments/assets/9ef108af-253f-4f67-bd8f-61fd7659b938" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0dd6134a-3eaf-4340-9460-4a27b1766623" width="900" alt="Create Short URL"/>
+</p>
 
-### Docker Containers Running
-<img width="1645" height="103" alt="Docker Compose PS" src="https://github.com/user-attachments/assets/8d279111-9349-4391-bcc4-7ce1fbb595b0" />
+#### Get All URLs
 
-### Docker Images
-<img width="793" height="136" alt="Docker Images" src="https://github.com/user-attachments/assets/cba90489-0705-43de-81b1-c05f473d33fe" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/98b9f8b1-024c-403c-9a92-10e59d1eee13" width="900" alt="Get All URLs"/>
+</p>
+
+#### URL Analytics
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/de37f7c7-7095-49bb-9c19-8fe3a6088c5a" width="900" alt="URL Analytics"/>
+</p>
+
+#### QR Code
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9ef108af-253f-4f67-bd8f-61fd7659b938" width="900" alt="QR Code"/>
+</p>
+
+### Docker
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8d279111-9349-4391-bcc4-7ce1fbb595b0" width="900" alt="Docker Compose PS"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cba90489-0705-43de-81b1-c05f473d33fe" width="900" alt="Docker Images"/>
+</p>
 
 ---
 
@@ -276,6 +343,16 @@ The application is configured using environment variables, typically defined in 
 
 ---
 
+# 🧪 Testing
+
+Run all tests
+
+```bash
+./gradlew test
+```
+
+---
+
 # 🐳 Docker Deployment
 
 Build and start both containers (Spring Boot API + MySQL) using Docker Compose:
@@ -290,7 +367,9 @@ Check that both containers are healthy and running:
 docker compose ps
 ```
 
-<img width="1645" height="103" alt="Docker Compose PS" src="https://github.com/user-attachments/assets/8d279111-9349-4391-bcc4-7ce1fbb595b0" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8d279111-9349-4391-bcc4-7ce1fbb595b0" width="900" alt="Docker Compose PS"/>
+</p>
 
 View live application logs:
 
@@ -311,7 +390,9 @@ docker compose down
 | `urlshortener-springboot` | The Spring Boot REST API, packaged and run as a self-contained JAR |
 | `mysqlurldb` | The MySQL 8.4 database used for persistent URL storage |
 
-<img width="793" height="136" alt="Docker Images" src="https://github.com/user-attachments/assets/cba90489-0705-43de-81b1-c05f473d33fe" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cba90489-0705-43de-81b1-c05f473d33fe" width="900" alt="Docker Images"/>
+</p>
 
 ---
 
@@ -323,7 +404,9 @@ Interactive API documentation is available via Swagger UI once the application i
 http://localhost:8080/swagger-ui/index.html
 ```
 
-<img width="1895" height="966" alt="Swagger UI" src="https://github.com/user-attachments/assets/0ec23c8e-f628-4c98-893d-b43e8b9d1a86" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0ec23c8e-f628-4c98-893d-b43e8b9d1a86" width="1000" alt="Swagger UI"/>
+</p>
 
 From here you can explore and execute every endpoint directly in the browser, including creating short URLs, fetching analytics, and generating QR codes.
 
@@ -364,7 +447,9 @@ Response
 }
 ```
 
-<img width="605" height="788" alt="Create Short URL" src="https://github.com/user-attachments/assets/0dd6134a-3eaf-4340-9460-4a27b1766623" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0dd6134a-3eaf-4340-9460-4a27b1766623" width="900" alt="Create Short URL"/>
+</p>
 
 ## Get All URLs
 
@@ -372,7 +457,9 @@ Response
 GET /api/v1/urls
 ```
 
-<img width="902" height="863" alt="Get All URLs" src="https://github.com/user-attachments/assets/98b9f8b1-024c-403c-9a92-10e59d1eee13" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/98b9f8b1-024c-403c-9a92-10e59d1eee13" width="900" alt="Get All URLs"/>
+</p>
 
 ## Get URL Analytics
 
@@ -394,7 +481,9 @@ Response
 }
 ```
 
-<img width="607" height="710" alt="URL Analytics" src="https://github.com/user-attachments/assets/de37f7c7-7095-49bb-9c19-8fe3a6088c5a" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/de37f7c7-7095-49bb-9c19-8fe3a6088c5a" width="900" alt="URL Analytics"/>
+</p>
 
 ## Generate QR Code
 
@@ -404,7 +493,9 @@ GET /api/v1/urls/{shortCode}/qr
 
 Returns a `image/png` response containing a scannable QR code for the shortened URL.
 
-<img width="607" height="816" alt="QR Code" src="https://github.com/user-attachments/assets/9ef108af-253f-4f67-bd8f-61fd7659b938" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/9ef108af-253f-4f67-bd8f-61fd7659b938" width="900" alt="QR Code"/>
+</p>
 
 ## Redirect
 
@@ -547,6 +638,9 @@ The project doesn't yet include authentication, but the following measures are a
 - Redis Caching
 - Rate Limiting
 - API Keys
+- Custom Domains
+- Bulk URL Shortening
+- User Accounts & Dashboard
 - CI/CD Pipeline
 - Kubernetes Deployment
 - Prometheus Metrics
@@ -562,7 +656,7 @@ Backend Developer | Java Developer
 
 [![GitHub](https://img.shields.io/badge/GitHub-KaRtHiK--030-181717?style=for-the-badge&logo=github)](https://github.com/KaRtHiK-030)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Karthik_Naik-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/karthik-naik-/)
-[![Email](https://img.shields.io/badge/Email-Contact_Me-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@example.com)
+[![Email](https://img.shields.io/badge/Email-Contact_Me-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:karthiknknaik297@gmail.com)
 
 ---
 
@@ -581,8 +675,8 @@ If you found this project useful, consider giving it a **Star ⭐** on GitHub.
 
 ---
 
-## 📄 License
+# 📄 License
 
-This project has no usage restrictions — feel free to use, copy, modify, or build on it for any purpose. It was created as a personal project for learning and career-development purposes.
+This project is licensed under the MIT License.
 
-> 💡 If you'd like this reflected formally on GitHub (e.g. for the license badge above to resolve to something other than "no license"), consider adding an [MIT License](https://choosealicense.com/licenses/mit/) file, which is the standard way to grant this kind of unrestricted permission.
+See the [LICENSE](LICENSE) file for details.
