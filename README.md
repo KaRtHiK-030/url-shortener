@@ -663,7 +663,7 @@ Backend Developer | Java Developer
 # 📈 Repo Stats
 
 ![Last Commit](https://img.shields.io/github/last-commit/KaRtHiK-030/url-shortener?style=for-the-badge)
-![License](https://img.shields.io/github/license/KaRtHiK-030/url-shortener?style=for-the-badge)
+![License](https://img.shields.io/github/license/KaRtHiK-030/url-shortener?style=for-the-badge&cacheSeconds=1)
 ![Issues](https://img.shields.io/github/issues/KaRtHiK-030/url-shortener?style=for-the-badge)
 ![Stars](https://img.shields.io/github/stars/KaRtHiK-030/url-shortener?style=for-the-badge)
 
