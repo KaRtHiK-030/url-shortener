@@ -42,6 +42,24 @@ The application exposes REST APIs for creating, managing, and redirecting shorte
 
 ---
 
+# 🚀 Quick Start
+
+```bash
+git clone https://github.com/KaRtHiK-030/url-shortener.git
+cd url-shortener
+
+cp .env.example .env
+
+docker compose up -d --build
+```
+
+Then open:
+
+- **Swagger UI** → http://localhost:8080/swagger-ui/index.html
+- **Health Check** → http://localhost:8080/actuator/health
+
+---
+
 # ✨ Features
 
 ## Core Features
@@ -87,52 +105,54 @@ The application exposes REST APIs for creating, managing, and redirecting shorte
 
 # 📸 Screenshots
 
+> Screenshots below were captured from the running application using Swagger UI and Docker Compose.
+
 ### Swagger UI
-![Swagger UI](docs/images/swagger-ui.png)
+<img width="1895" height="966" alt="Swagger UI" src="https://github.com/user-attachments/assets/0ec23c8e-f628-4c98-893d-b43e8b9d1a86" />
 
 ### Create Short URL
-![Create Short URL](docs/images/create-url.png)
+<img width="605" height="788" alt="Create Short URL" src="https://github.com/user-attachments/assets/0dd6134a-3eaf-4340-9460-4a27b1766623" />
 
 ### Get All URLs
-![Get All URLs](docs/images/all-urls.png)
+<img width="902" height="863" alt="Get All URLs" src="https://github.com/user-attachments/assets/98b9f8b1-024c-403c-9a92-10e59d1eee13" />
 
 ### URL Analytics
-![URL Analytics](docs/images/analytics.png)
+<img width="607" height="710" alt="URL Analytics" src="https://github.com/user-attachments/assets/de37f7c7-7095-49bb-9c19-8fe3a6088c5a" />
 
 ### QR Code Generation
-![QR Code](docs/images/qr-code.png)
+<img width="607" height="816" alt="QR Code" src="https://github.com/user-attachments/assets/9ef108af-253f-4f67-bd8f-61fd7659b938" />
 
 ### Docker Containers Running
-![Docker Compose PS](docs/images/docker-compose-ps.png)
+<img width="1645" height="103" alt="Docker Compose PS" src="https://github.com/user-attachments/assets/8d279111-9349-4391-bcc4-7ce1fbb595b0" />
 
 ### Docker Images
-![Docker Images](docs/images/docker-images.png)
+<img width="793" height="136" alt="Docker Images" src="https://github.com/user-attachments/assets/cba90489-0705-43de-81b1-c05f473d33fe" />
 
 ---
 
 # 🏗 Architecture
 
 ```
-                        Client
-                          │
-                          ▼
-                REST Controller Layer
-                          │
-                          ▼
-                   Service Layer
-                          │
-                          ▼
-                  Repository Layer
-                          │
-                          ▼
-                   MySQL Database
+Browser / Client
+        │
+        ▼
+ REST Controller
+        │
+        ▼
+ Service Layer
+        │
+        ▼
+Repository Layer
+        │
+        ▼
+ MySQL Database
 
-        Cross-cutting concerns applied throughout:
-        ─────────────────────────────────────────
-        • Global Exception Handler
-        • Bean Validation
-        • Swagger / OpenAPI
-        • Spring Boot Actuator
+Cross Cutting:
+✓ Validation
+✓ Logging
+✓ Exception Handling
+✓ Swagger
+✓ Actuator
 ```
 
 ---
@@ -176,11 +196,9 @@ url-shortener
 │   │   │       └── UrlShortenerApplication
 │   │   │
 │   │   └── resources
+│   │       └── application.properties
 │   │
 │   └── test
-│
-├── docs
-│   └── images
 │
 ├── docker-compose.yml
 ├── .env.example
@@ -272,7 +290,13 @@ Check that both containers are healthy and running:
 docker compose ps
 ```
 
-![Docker Compose PS](docs/images/docker-compose-ps.png)
+<img width="1645" height="103" alt="Docker Compose PS" src="https://github.com/user-attachments/assets/8d279111-9349-4391-bcc4-7ce1fbb595b0" />
+
+View live application logs:
+
+```bash
+docker compose logs -f
+```
 
 Stop and remove the containers:
 
@@ -287,7 +311,7 @@ docker compose down
 | `urlshortener-springboot` | The Spring Boot REST API, packaged and run as a self-contained JAR |
 | `mysqlurldb` | The MySQL 8.4 database used for persistent URL storage |
 
-![Docker Images](docs/images/docker-images.png)
+<img width="793" height="136" alt="Docker Images" src="https://github.com/user-attachments/assets/cba90489-0705-43de-81b1-c05f473d33fe" />
 
 ---
 
@@ -299,7 +323,7 @@ Interactive API documentation is available via Swagger UI once the application i
 http://localhost:8080/swagger-ui/index.html
 ```
 
-![Swagger UI](docs/images/swagger-ui.png)
+<img width="1895" height="966" alt="Swagger UI" src="https://github.com/user-attachments/assets/0ec23c8e-f628-4c98-893d-b43e8b9d1a86" />
 
 From here you can explore and execute every endpoint directly in the browser, including creating short URLs, fetching analytics, and generating QR codes.
 
@@ -340,7 +364,7 @@ Response
 }
 ```
 
-![Create Short URL](docs/images/create-url.png)
+<img width="605" height="788" alt="Create Short URL" src="https://github.com/user-attachments/assets/0dd6134a-3eaf-4340-9460-4a27b1766623" />
 
 ## Get All URLs
 
@@ -348,7 +372,39 @@ Response
 GET /api/v1/urls
 ```
 
-![Get All URLs](docs/images/all-urls.png)
+<img width="902" height="863" alt="Get All URLs" src="https://github.com/user-attachments/assets/98b9f8b1-024c-403c-9a92-10e59d1eee13" />
+
+## Get URL Analytics
+
+```
+GET /api/v1/urls/{id}/analytics
+```
+
+Response
+
+```json
+{
+    "id": 2,
+    "fullUrl": "https://spring.io/projects/spring-boot",
+    "shortUrl": "springboot",
+    "customAlias": "springboot",
+    "clickCount": 5,
+    "createdAt": "2026-07-22T04:13:38.098847",
+    "lastAccessedAt": "2026-07-22T06:31.328868"
+}
+```
+
+<img width="607" height="710" alt="URL Analytics" src="https://github.com/user-attachments/assets/de37f7c7-7095-49bb-9c19-8fe3a6088c5a" />
+
+## Generate QR Code
+
+```
+GET /api/v1/urls/{shortCode}/qr
+```
+
+Returns a `image/png` response containing a scannable QR code for the shortened URL.
+
+<img width="607" height="816" alt="QR Code" src="https://github.com/user-attachments/assets/9ef108af-253f-4f67-bd8f-61fd7659b938" />
 
 ## Redirect
 
@@ -370,38 +426,26 @@ Returns application health information.
 
 # 📱 QR Code Generation
 
-```
-GET /api/v1/urls/{shortCode}/qr
-```
-
-Generates a PNG QR code that encodes the full shortened URL, so it can be scanned directly to redirect to the original link. Works with both generated short codes and custom aliases.
-
-![QR Code](docs/images/qr-code.png)
+Every shortened URL can be turned into a scannable PNG QR code (see the [Generate QR Code](#-rest-api) endpoint above). It encodes the full short URL, so scanning it redirects straight to the original link, and works with both generated short codes and custom aliases.
 
 ---
 
 # 📊 Analytics
 
-```
-GET /api/v1/urls/{id}/analytics
-```
-
-Returns tracking information for a given shortened URL, including:
+Every shortened URL tracks basic usage data, available via the [Get URL Analytics](#-rest-api) endpoint above:
 
 - **Click Count** — number of times the short URL has been accessed
 - **Created Date** — when the short URL was generated
 - **Expiration Date** — when the short URL becomes invalid (if set)
 - **Last Accessed** — timestamp of the most recent redirect
 
-![URL Analytics](docs/images/analytics.png)
-
 ---
 
 # 🗄 Database Schema
 
-The application stores URL information inside MySQL.
+The application persists shortened URLs in MySQL using JPA/Hibernate.
 
-Main entity fields include:
+Each record stores:
 
 | Field | Description |
 |--------|-------------|
@@ -427,6 +471,18 @@ The application uses a global exception handler to return consistent, meaningful
 | `409 Conflict` | Custom alias already exists (`DuplicateAliasException`) |
 | `410 Gone` | Short URL has expired |
 | `500 Internal Server Error` | Unexpected server-side failure |
+
+Example error response:
+
+```json
+{
+  "timestamp": "2026-07-22T15:12:20",
+  "status": 409,
+  "error": "Conflict",
+  "message": "Custom alias already exists.",
+  "path": "/api/v1/urls"
+}
+```
 
 ---
 
@@ -459,6 +515,32 @@ Advantages:
 
 ---
 
+# 🎯 Design Decisions
+
+## Why Base62?
+
+- Short URLs
+- Collision-free
+- URL-safe
+- Efficient
+- Human-readable
+
+Base62 was chosen over UUIDs or random string generation because it deterministically encodes the database ID, guaranteeing uniqueness without extra lookups, while producing shorter, cleaner links than hex or UUID-based approaches.
+
+---
+
+# 🔒 Security
+
+The project doesn't yet include authentication, but the following measures are already in place:
+
+- ✓ Input Validation
+- ✓ URL Validation
+- ✓ Exception Handling
+- ✓ Environment Variables (no hardcoded secrets)
+- ✓ Docker Isolation
+
+---
+
 # 🚀 Future Enhancements
 
 - JWT Authentication
@@ -480,6 +562,7 @@ Backend Developer | Java Developer
 
 [![GitHub](https://img.shields.io/badge/GitHub-KaRtHiK--030-181717?style=for-the-badge&logo=github)](https://github.com/KaRtHiK-030)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Karthik_Naik-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/karthik-naik-/)
+[![Email](https://img.shields.io/badge/Email-Contact_Me-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@example.com)
 
 ---
 
@@ -500,4 +583,6 @@ If you found this project useful, consider giving it a **Star ⭐** on GitHub.
 
 ## 📄 License
 
-This project is licensed under the **MIT License**. It is also intended for educational and learning purposes.
+This project has no usage restrictions — feel free to use, copy, modify, or build on it for any purpose. It was created as a personal project for learning and career-development purposes.
+
+> 💡 If you'd like this reflected formally on GitHub (e.g. for the license badge above to resolve to something other than "no license"), consider adding an [MIT License](https://choosealicense.com/licenses/mit/) file, which is the standard way to grant this kind of unrestricted permission.
